@@ -665,7 +665,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
     <input id="flinkedin" type="url" placeholder="https://linkedin.com/in/yourusername">
     <div class="panel" id="upiBox" style="text-align:center;"></div>
     <button class="btn" id="applyBtn" type="button">Submit application (FREE)</button>
-    <p class="hint">On submit: your application is sent for admin approval. Once approved, your Internship Letter and Completion Certificate become available to download from the "Applications on this device" table below. Your email app will also open so you can notify the office.</p>
+    <p class="hint">Joining is FREE. After you submit, your Offer Letter is ready instantly and training starts right away. Once you finish and the admin approves your work, you can get your certificates for a small one-time fee (or free, if the admin has waived it).</p>
   </div>
 
   <div class="panel">
@@ -1237,7 +1237,7 @@ function renderOfferBanner(id){
   el.innerHTML = wait
     ? `<div class="hint" style="margin:0 0 .8rem;">\uD83D\uDCC4 Offer Letter: ${esc(wait)}</div>`
     : `<div style="display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap;background:linear-gradient(135deg,#0a3d3a,#0b2a5b);color:#fff;border-radius:14px;padding:.8rem 1rem;margin:0 0 .9rem;border:1px solid #c9a24b;">
-        <div><b>\uD83C\uDF89 Payment received \u2014 aapka Offer Letter ready hai</b><div style="font-size:.8rem;opacity:.85;">Download karke print / PDF save kar lo.</div></div>
+        <div><b>\uD83C\uDF89 Application received \u2014 aapka Offer Letter ready hai</b><div style="font-size:.8rem;opacity:.85;">Download karke print / PDF save kar lo.</div></div>
         <button class="btn" type="button" onclick="downloadOfferLetter('${a.id}')" style="width:auto;padding:.5rem 1.1rem;margin:0;background:linear-gradient(135deg,#e6c46f,#c9a24b);color:#2a1d00;">Download Offer Letter</button></div>`;
 }
 function downloadOfferLetter(id){
@@ -2902,4 +2902,3 @@ else if(window.__gLoaded) initGoogleSignIn();
 </script>
 </body>
 </html>
-
