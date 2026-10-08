@@ -500,6 +500,18 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 .dd-dots button.on{width:26px;border-radius:6px;background:linear-gradient(90deg,#c9a24b,#0b8f7f) !important;}
 .dd-foot{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;}
 @media(max-width:640px){.dd-nav{width:32px;height:32px;font-size:1.3rem;}.dd-foot{justify-content:center;text-align:center;}}
+/* ---- ads (public pages only) ---- */
+.ad-slot{margin:1rem auto;text-align:center;max-width:100%;overflow:hidden;}
+.ad-slot>small{display:block;font-size:.6rem;letter-spacing:.16em;color:#8a9a97;text-transform:uppercase;margin-bottom:.25rem;}
+.ad-slot iframe{border:0;display:block;margin:0 auto;max-width:100%;overflow:hidden;background:transparent;}
+.ad-ph{display:inline-flex;align-items:center;justify-content:center;border:1.5px dashed #9bb7b1;border-radius:8px;color:#6b7b78;font-size:.75rem;background:rgba(255,255,255,.55);max-width:100%;}
+.ad-gutter{display:none;position:fixed;top:130px;z-index:5;text-align:center;}
+.ad-gutter>small{display:block;font-size:.55rem;letter-spacing:.14em;color:#8a9a97;text-transform:uppercase;margin-bottom:.2rem;}
+@media(min-width:1500px){
+  body.on-home .ad-gutter{display:block;}
+  .ad-gutter.l{left:max(8px,calc((100vw - 1100px)/2 - 180px));}
+  .ad-gutter.r{right:max(8px,calc((100vw - 1100px)/2 - 180px));}
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 </head>
@@ -524,7 +536,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
   <div class="lp-left">
     <span class="lp-pill">✦ Certified Learning &amp; Tech Training</span>
     <h1>Elevate Your Career with <span class="lp-grad">TrendraXTech Internships</span></h1>
-    <p class="lp-sub">Apply to curated virtual internships, learn week by week with videos, quizzes and projects, and earn a verifiable certificate plus Trendra goodies.</p>
+    <p class="lp-sub">Apply to curated virtual internships, learn week by week with videos, quizzes and projects, and earn a verifiable certificate (optional T-shirt goodies).</p>
     <div class="lp-btns">
       <a class="btn" href="#view-apply" style="width:auto;padding:.85rem 1.6rem;text-decoration:none;display:inline-block;margin:0;">Explore Internships →</a>
       <button class="btn" type="button" onclick="showView('verify')" style="width:auto;padding:.85rem 1.6rem;margin:0;background:#fff;color:var(--navy);border:1px solid var(--line);box-shadow:none;">Verify Certificate →</button>
@@ -533,13 +545,13 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
       <div><span class="lp-ic">👥</span><b>14</b>Internship tracks</div>
       <div><span class="lp-ic">💼</span><b>4 Weeks</b>Structured program</div>
       <div><span class="lp-ic">🏅</span><b>100%</b>Virtual</div>
-      <div><span class="lp-ic">🎁</span><b>Goodies</b>Included</div>
+      <div><span class="lp-ic">🎁</span><b>FREE</b>To join</div>
     </div>
   </div>
   <div class="lp-card">
     <div class="lp-illus"><img id="lpShirt" alt="Trendra goodies T-shirt" style="height:150px;width:auto;border-radius:10px;"></div>
     <h3>Certificate + Goodies Kit</h3>
-    <p>Complete your internship to receive a verified certificate and TrendraXTech goodies.</p>
+    <p>Finish your internship to earn a verified certificate. Pick the goodies plan to also get a TrendraXTech T-shirt.</p>
     
   </div>
 </div>
@@ -549,8 +561,8 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
     <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAHRAaQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6YooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiipFhY/e+WgCOpEhZ+cYHqal2LGoIHORnNSKc9aAMq0vY7wNsBBU4wasVh2rG11G4h6Yc/zrcjYkc80AFFPwp7EUm0f3qAG0U4KPUUbQOrUANopcoO5NJv8ARaAFAJpobO7HQY59aRix6mnIMREkdTQAUVICABTQoOaAG0UpUikoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACigAk4AzUixAfeP4CgBgBY4AzUiw93OPYU8NjhQAKM+tACrtX7ox70u78abmkzQA4/OCPWhSOtIDilHBPvyKAMLVlW01JZymUlHJ9CK07V45IwytgUuoWgvLYoMb1O5D71RsnDDaRtYcEdKANXbnkYNNKEdqjCYGFcilKyj7rj8RQA/Z7Gk8v2phacfxJSZuCeGQfnQBJ5ftQVVfvMBTDE7dZT+Apvkp3LNn1NAA1xEhIjUu1OyzbA4wcZI9KekaoOFAUcnFJnJLGgAYjOPwpc+lNAGcke9Ln2xQAucd6CoNIKUCgBpQ9uabTyfSkJz1oAbRRiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKVVLHApKsbfJgY/xHrQAgTA44pcU9vuK1IRQA0igClpKAEIoAp2KQ0AJjFL2x+VJRmgB1VLm1xJ58Q+b+JfX3q0eTmjNAFaJ9wFTHmh41c5xg+ooCkDkg0AGKQ8fWnYPpShTQA3oKRU5p+AOp/AU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" alt="TrendraXTech goodies T-shirt source" style="height:170px;width:auto;border-radius:8px;">
     <div style="flex:1;min-width:220px;">
       <p class="section-label">Goodies</p>
-      <h2 class="section-title" style="margin-bottom:.4rem;">Get Trendra goodies with your internship</h2>
-      <p style="font-size:.92rem;">Complete your internship and receive a TrendraXTech branded T-shirt along with your verified certificate.</p>
+      <h2 class="section-title" style="margin-bottom:.4rem;">Add Trendra goodies to your certificate</h2>
+      <p style="font-size:.92rem;">Choose the Certificate + T-shirt plan and receive a TrendraXTech branded T-shirt along with your verified certificate.</p>
     </div>
     <div class="lp-logos gd-logos"><div style="text-align:center;"><img id="lpMsme" alt="MSME Registered"><br><span class="msme">✓ Verified · UDYAM-UP-37-0035835</span></div></div>
   </div>
@@ -669,7 +681,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
   </div>
 
   <div class="panel">
-    <h2 class="section-title" style="margin-bottom:.6rem;">Applications on this device</h2>
+    <h2 class="section-title" style="margin-bottom:.6rem;">My applications</h2>
     <div class="tbl-wrap">
     <table id="appTable"><tr><th>Name</th><th>Track</th><th>Duration</th><th>Status</th><th></th></tr></table>
     </div>
@@ -684,7 +696,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
     <input id="verifyInput" placeholder="APP-XXXXXXXX">
     <button class="btn" type="button" onclick="verifyCert()">Verify</button>
     <div id="verifyResult" style="margin-top:1rem;"></div>
-    <p class="hint">Verification works on the device where the application was submitted (no central server yet).</p>
+    <p class="hint">Enter the App No / Certificate ID printed on the certificate. Only certificates that have been officially issued can be verified.</p>
   </div>
 </div>
 
@@ -693,10 +705,10 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
   <h2 class="section-title">Support</h2>
   <div class="panel" style="max-width:640px;">
     <h3 style="margin:0 0 .6rem;">Frequently asked questions</h3>
-    <div class="faq-item"><b>My offer letter isn't showing yet — why?</b><p>Offer letters are available 24 hours after you submit your application. Check the "Applications on this device" table on the Home page for the countdown.</p></div>
-    <div class="faq-item"><b>How do I get my completion certificate?</b><p>Finish the weekly training (videos, quiz, and final project) from the Training dashboard, then wait for admin approval. Once approved, both certificates appear in the applications table.</p></div>
+    <div class="faq-item"><b>Where is my offer letter?</b><p>Your Offer Letter is ready instantly after you submit your application. The Training dashboard opens automatically — tap <b>Download Offer Letter</b>. You can also find it in the "My applications" table on the Home page.</p></div>
+    <div class="faq-item"><b>How do I get my completion certificate?</b><p>Finish the weekly training (videos, quiz, and final project) from the Training dashboard, then wait for admin approval. Once approved, pay the small one-time certificate fee (₹33, or ₹199 with the T-shirt plan) from the dashboard — unless the admin has made your internship free — and your Internship Certificate, Completion Certificate and Recommendation Letter unlock.</p></div>
     <div class="faq-item"><b>How can I verify someone's certificate?</b><p>Use the "Verify Certificate" tab and enter the App No printed on the certificate.</p></div>
-    <div class="faq-item"><b>I switched devices and my application disappeared — what happened?</b><p>Applications are saved in your browser only. Sign in with the same Google account you used originally, or reapply from the new device.</p></div>
+    <div class="faq-item"><b>I switched devices — where is my application?</b><p>Applications are saved on our server against your Google account. Sign in with the same Google account on the new device and your applications will appear automatically.</p></div>
     <div class="faq-item"><b>I have another question.</b><p>Use the form below or email us directly — we usually reply within 1–2 working days.</p></div>
   </div>
   <div class="panel" style="max-width:640px;margin-top:1rem;">
@@ -727,7 +739,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
     <h3>6. Your choices</h3>
     <p>You can clear your browser's local storage at any time to remove your locally-stored data. To request removal of any data you've shared with us by email, contact us using the details below.</p>
     <h3>7. Contact us</h3>
-    <p><b>Advertising.</b> This site may show ads served by Google AdSense. Google and its partners may use cookies to show ads based on your visits to this and other websites. You can manage personalised ads at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</p>
+    <p><b>Advertising.</b> This site may show ads served by Google AdSense and Adsterra. These ad partners may use cookies to show ads based on your visits to this and other websites. You can manage Google's personalised ads at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>. Ads are shown only on public pages and are loaded in isolated frames; we never show ads inside the application form, payment, training dashboard or admin screens.</p>
     <p>For any privacy questions, email <a href="mailto:trendra.care.ac.in@gmail.com">trendra.care.ac.in@gmail.com</a>.</p>
   </div>
 </div>
@@ -776,6 +788,17 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
       <textarea id="freeEmails" rows="4" placeholder="student1@gmail.com&#10;student2@gmail.com" style="width:100%;"></textarea>
       <button class="btn" type="button" style="width:auto;padding:.5rem 1.1rem;margin-top:.4rem;" onclick="saveFreeList()">Save free list</button> <span id="freeListMsg" class="hint"></span>
     </div>
+    <div class="panel" id="freeCodesPanel">
+      <h2 class="section-title" style="font-size:1rem;margin-bottom:.4rem;">Free codes</h2>
+      <p class="hint" style="margin:0 0 .6rem;">Code banao aur us intern ko bhejo jise free dena hai. Intern certificate ke waqt code daalega to fee nahi lagegi. Codes sirf admin banata aur band karta hai.</p>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:flex-end;">
+        <div style="flex:1 1 150px;"><label>Note (optional)</label><input id="fcNote" placeholder="e.g. College X batch"></div>
+        <div style="flex:0 0 130px;"><label>Max uses (0 = unlimited)</label><input id="fcMax" type="number" min="0" value="1"></div>
+        <div style="flex:1 1 150px;"><label>Custom code (optional)</label><input id="fcCustom" placeholder="auto-generate"></div>
+        <button class="btn" type="button" onclick="createFreeCode()" style="width:auto;padding:.6rem 1.1rem;margin:0;">Create code</button>
+      </div>
+      <div id="fcResult"></div><div id="fcList" style="margin-top:.6rem;overflow-x:auto;"></div>
+    </div>
     <div class="panel" id="rzpTestPanel">
       <h2 class="section-title" style="font-size:1rem;margin-bottom:.4rem;">Razorpay test payment (₹1)</h2>
       <p class="hint" style="margin:0 0 .6rem;">Asli Razorpay checkout mein ₹1 ka payment karke dekho ki sab sahi chal raha hai. Live key hone par ₹1 asli kat'ta hai — Razorpay Dashboard se refund kar sakte ho.</p>
@@ -799,7 +822,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
         <select id="userRoleFilter" onchange="renderUsersPanel()"><option value="">All roles</option><option>Student</option><option>Instructor</option><option>Admin</option></select>
       </div>
       <div class="tbl-wrap"><table class="data-table" id="usersTable"></table></div>
-      <p class="hint">Shows users seen on this device/browser only — this portal has no shared backend yet.</p>
+      <p class="hint">Shows every user from the applications loaded in this dashboard.</p>
     </div>
     <div class="stat-row" id="adminStats"></div>
     <p class="section-label" style="margin-top:.2rem;">Applications by track</p>
@@ -813,10 +836,6 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
       <h2 class="section-title" style="font-size:1rem;margin-bottom:.6rem;">Certificate Settings</h2>
       <label>Extra note on certificate (optional — leave blank for none)</label>
       <textarea id="certNote" rows="2" placeholder="e.g. Top performer of the batch"></textarea>
-      <label>Founder signature label</label>
-      <input id="certFounderLabel" placeholder="Founder">
-      <label>Co-Founder signature label</label>
-      <input id="certCofounderLabel" placeholder="Co-Founder">
       <button class="btn" type="button" style="width:auto;padding:.5rem 1rem;margin-top:.4rem;" onclick="saveCertSettings()">Save certificate settings</button>
       <p class="hint">Applies to every certificate generated after saving. You can change this anytime.</p>
     </div>
@@ -1074,6 +1093,12 @@ function initFirebaseSync(){
       if(typeof renderUpiBox==='function') renderUpiBox();
     }
   },()=>{});
+  fbDb.collection('trendra').doc('free_codes').onSnapshot(doc=>{
+    if(!doc.exists) return;
+    const l=(doc.data()||{}).codes; if(!Array.isArray(l)) return;
+    FREE_CODES=l; try{ localStorage.setItem('trendra_free_codes',JSON.stringify(l)); }catch(e){}
+    renderFreeCodes();
+  },()=>{});
   fbDb.collection('trendra').doc('free_list').onSnapshot(doc=>{
     if(!doc.exists) return;
     const l=(doc.data()||{}).emails; if(!Array.isArray(l)) return;
@@ -1172,7 +1197,7 @@ function renderApps(){
     const certBtn = certUnlocked(a)
       ? `<button class="btn" type="button" style="width:auto;padding:.4rem .8rem;font-size:.78rem;" onclick="downloadCertificate('${a.id}','internship')">Internship Cert.</button> <button class="btn" type="button" style="width:auto;padding:.4rem .8rem;font-size:.78rem;margin-top:.3rem;" onclick="downloadCertificate('${a.id}','completion')">Completion Cert.</button> <button class="btn" type="button" style="width:auto;padding:.4rem .8rem;font-size:.78rem;margin-top:.3rem;" onclick="downloadCertificate('${a.id}','lor')">Recommendation Letter</button>`
       : (approved && !feeCleared(a))
-        ? `<button class="btn" type="button" style="width:auto;padding:.4rem .8rem;font-size:.78rem;" onclick="payCertFee('${a.id}')">Pay ₹${feeAmount(a)} — unlock certificates</button>`
+        ? `<button class="btn" type="button" style="width:auto;padding:.4rem .8rem;font-size:.78rem;" onclick="payCertFee('${a.id}')">Pay ₹${feeAmount(a)} — unlock certificates</button><br><a href="#" onclick="promptFreeCode('${a.id}');return false;" style="font-size:.72rem;">Free code?</a>`
         : `<span class="hint">${approved?'Admin se milega':'After approval'}</span>`;
     row.innerHTML=`<td data-label="Name">${esc(a.name)}</td><td data-label="Track">${esc(a.track)}</td><td data-label="Duration">${esc(a.duration)}</td><td data-label="Application">${stageHtml(a)}</td><td data-label="Status">${statusHtml}</td><td data-label="Training">${trainBtn}</td><td data-label="Offer Letter">${letterBtn}</td><td data-label="Certificate">${certBtn}</td>`;
     t.appendChild(row);
@@ -1222,7 +1247,7 @@ function renderFeeBanner(id){
   const box=(bg,html)=>`<div style="background:${bg};border-radius:14px;padding:.85rem 1rem;margin:0 0 .9rem;border:1px solid #c9a24b;">${html}</div>`;
   const b='class="btn" type="button" style="width:auto;padding:.45rem .9rem;font-size:.78rem;margin:0;"';
   if(a.approved && !feeCleared(a)){
-    el.innerHTML=box('linear-gradient(135deg,#fffaf0,#f3ead2)',`<b>\uD83C\uDF93 Internship approve ho gayi!</b><div style="font-size:.85rem;color:#555;margin:.2rem 0 .65rem;">Apne certificates (Internship + Completion + Recommendation Letter) lene ke liye ek chhoti fee: <b>\u20b9${feeAmount(a)}</b></div><button class="btn" type="button" onclick="payCertFee('${a.id}')" style="width:auto;padding:.55rem 1.2rem;margin:0;">Pay \u20b9${feeAmount(a)} &amp; unlock certificates</button>`); return;
+    el.innerHTML=box('linear-gradient(135deg,#fffaf0,#f3ead2)',`<b>\uD83C\uDF93 Internship approve ho gayi!</b><div style="font-size:.85rem;color:#555;margin:.2rem 0 .65rem;">Apne certificates (Internship + Completion + Recommendation Letter) lene ke liye ek chhoti fee: <b>\u20b9${feeAmount(a)}</b></div><button class="btn" type="button" onclick="payCertFee('${a.id}')" style="width:auto;padding:.55rem 1.2rem;margin:0;">Pay \u20b9${feeAmount(a)} &amp; unlock certificates</button><div style="margin-top:.7rem;display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;"><input id="freeCodeInput" placeholder="Free code (agar mila ho)" autocomplete="off" style="flex:1 1 150px;max-width:230px;text-transform:uppercase;"><button class="btn" type="button" onclick="redeemFromBanner('${a.id}')" style="width:auto;padding:.45rem .9rem;font-size:.78rem;margin:0;background:#fff;color:#0a3d3a;border:1.5px solid #0a3d3a;box-shadow:none;">Apply code</button></div>`); return;
   }
   if(certUnlocked(a)){
     el.innerHTML=box('linear-gradient(135deg,#eaf7f1,#dff1ea)',`<b>\u2705 ${isFreeApp(a)?'Aapki internship FREE hai \u2014 ':''}Certificates ready</b><div style="margin-top:.55rem;display:flex;gap:.4rem;flex-wrap:wrap;"><button ${b} onclick="downloadCertificate('${a.id}','internship')">Internship Certificate</button><button ${b} onclick="downloadCertificate('${a.id}','completion')">Completion Certificate</button><button ${b} onclick="downloadCertificate('${a.id}','lor')">Recommendation Letter</button></div>`); return;
@@ -1300,7 +1325,7 @@ async function emailApplication(a){
   }catch(e){
     console.warn('EmailJS send failed:',e);
     a.adminEmailed = false; persistApps();
-    emailApplicationMailtoFallback(a);   // last resort: opens a pre-filled email to send manually
+    /* admin still sees the application in the dashboard; no mail-app popup for students */
   }
 }
 
@@ -1379,7 +1404,7 @@ $('applyBtn').onclick=async ()=>{
   renderApps();
   emailApplication(apps.find(x=>x.id===id));
   $('applyBtn').disabled = false;
-  $('applyBtn').textContent = 'Submit application';
+  $('applyBtn').textContent = 'Submit application (FREE)';
   $('fUtr').value=''; $('fPaySS').value=''; rzpPay=null; renderUpiBox();
   capturedLocation = null;
   $('locStatus').textContent = 'Not captured yet';
@@ -1402,8 +1427,108 @@ const PRICE_GOODIES = 199, PRICE_BASIC = 33;   // \u20b9 — change prices here 
 function planPrice(){ return $('fplan').value==='goodies' ? PRICE_GOODIES : PRICE_BASIC; }
 /* Fee model: joining + offer letter are FREE. The fee is paid at the END, when the intern wants the certificates.
    Admin can waive it per intern (feeWaived) or via the free-emails list. */
+/* ---------- Free codes: only the admin creates / disables them. Interns redeem one at the certificate stage. ----------
+   The server only stores a SHA-256 hash of each code (so codes can't be read from the database);
+   the admin's own browser remembers the plain text so it can be copied and shared. */
+let FREE_CODES = (function(){ try{ const l=JSON.parse(localStorage.getItem('trendra_free_codes')||'[]'); return Array.isArray(l)?l:[]; }catch(e){ return []; } })();
+function codePlainMap(){ try{ return JSON.parse(localStorage.getItem('trendra_code_plain')||'{}'); }catch(e){ return {}; } }
+function normCode(c){ return String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+function sha256Fallback(ascii){
+  const rr=(v,n)=>(v>>>n)|(v<<(32-n)), maxWord=Math.pow(2,32), words=[], bitLen=ascii.length*8;
+  let hash=[], k=[], pc=0, result=''; const comp={};
+  for(let c=2;pc<64;c++){ if(!comp[c]){ for(let i=0;i<313;i+=c) comp[i]=c; hash[pc]=(Math.pow(c,.5)*maxWord)|0; k[pc++]=(Math.pow(c,1/3)*maxWord)|0; } }
+  ascii+='\x80'; while(ascii.length%64-56) ascii+='\x00';
+  for(let i=0;i<ascii.length;i++){ const j=ascii.charCodeAt(i); if(j>>8) return ''; words[i>>2]|=j<<((3-i)%4)*8; }
+  words[words.length]=((bitLen/maxWord)|0); words[words.length]=bitLen;
+  for(let j=0;j<words.length;){
+    const w=words.slice(j,j+=16), old=hash; hash=hash.slice(0,8);
+    for(let i=0;i<64;i++){
+      const w15=w[i-15], w2=w[i-2], a=hash[0], e=hash[4];
+      const t1=hash[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+      const t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+      hash=[(t1+t2)|0].concat(hash); hash[4]=(hash[4]+t1)|0;
+    }
+    for(let i=0;i<8;i++) hash[i]=(hash[i]+old[i])|0;
+  }
+  for(let i=0;i<8;i++) for(let j=3;j+1;j--){ const b=(hash[i]>>(j*8))&255; result+=((b<16)?0:'')+b.toString(16); }
+  return result;
+}
+async function sha256hex(str){
+  try{ if(window.crypto && crypto.subtle){ const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str)); return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join(''); } }catch(e){}
+  return sha256Fallback(str);
+}
+const codeHash = c => sha256hex('trendra-free:'+normCode(c));
+function genCode(){
+  const al='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let out='';
+  const r=new Uint32Array(8); (window.crypto||{getRandomValues:a=>a.forEach((_,i)=>a[i]=Math.floor(Math.random()*4294967295))}).getRandomValues(r);
+  for(let i=0;i<8;i++) out+=al[r[i]%al.length];
+  return 'TRX-'+out.slice(0,4)+'-'+out.slice(4);
+}
+/* run fn(list) -> list on the shared codes document (transaction), or on the local copy when offline */
+async function mutateFreeCodes(fn){
+  const ref=(fbReady&&fbDb)?fbDb.collection('trendra').doc('free_codes'):null;
+  if(ref && fbDb.runTransaction){
+    return fbDb.runTransaction(async tx=>{
+      const d=await tx.get(ref); const list=(d.exists&&Array.isArray(d.data().codes))?d.data().codes:[];
+      const out=fn(list); tx.set(ref,{codes:out.list,updatedAt:Date.now()}); return out;
+    }).then(out=>{ FREE_CODES=out.list; try{ localStorage.setItem('trendra_free_codes',JSON.stringify(FREE_CODES)); }catch(e){} return out; });
+  }
+  const out=fn(FREE_CODES.map(x=>Object.assign({},x))); FREE_CODES=out.list;
+  try{ localStorage.setItem('trendra_free_codes',JSON.stringify(FREE_CODES)); }catch(e){}
+  return out;
+}
+async function redeemFreeCode(id,codeStr){
+  const a=apps.find(x=>x.id===id); if(!a) return;
+  if(!normCode(codeStr)){ alert('Pehle code likho.'); return; }
+  if(feeCleared(a)){ alert('Aapki fee pehle se clear hai.'); return; }
+  const h=await codeHash(codeStr);
+  let res;
+  try{
+    res=await mutateFreeCodes(list=>{
+      const c=list.find(x=>x.h===h);
+      if(!c) return {list,err:'Ye code galat hai.'};
+      if(!c.active) return {list,err:'Ye code band kar diya gaya hai.'};
+      c.usedBy=c.usedBy||[];
+      if(c.usedBy.indexOf(a.id)<0){
+        if(c.max>0 && c.usedBy.length>=c.max) return {list,err:'Is code ki limit poori ho chuki hai.'};
+        c.usedBy.push(a.id);
+      }
+      return {list,ok:true,label:c.label||''};
+    });
+  }catch(e){ alert('Code check nahi ho paya ('+((e&&e.code)||'network')+'). Dobara try karo.'); return; }
+  if(!res.ok){ alert(res.err); return; }
+  a.freeCodeUsed=true; a.freeCodeLabel=res.label; persistApps(); publishCerts(); renderApps(); renderFeeBanner(id);
+  toast('Free code lag gaya \u2713 \u2014 certificates unlock ho gaye');
+}
+function redeemFromBanner(id){ redeemFreeCode(id,($('freeCodeInput')||{}).value); }
+function promptFreeCode(id){ const c=prompt('Free code daalo:'); if(c) redeemFreeCode(id,c); }
+async function createFreeCode(){
+  const note=($('fcNote')||{}).value.trim(), max=Math.max(0,parseInt(($('fcMax')||{}).value,10)||0);
+  let custom=normCode(($('fcCustom')||{}).value), code;
+  if(custom){ if(custom.length<4){ alert('Custom code kam se kam 4 akshar/number ka rakho.'); return; } code=custom; } else code=genCode();
+  const h=await codeHash(code);
+  let out; try{ out=await mutateFreeCodes(list=>{ if(list.some(x=>x.h===h)) return {list,dup:true}; list.push({h,label:note,max,active:true,usedBy:[],createdAt:Date.now()}); return {list}; }); }
+  catch(e){ alert('Code save nahi hua ('+((e&&e.code)||'network')+')'); return; }
+  if(out.dup){ alert('Ye code pehle se hai.'); return; }
+  const pm=codePlainMap(); pm[h]=code; try{ localStorage.setItem('trendra_code_plain',JSON.stringify(pm)); }catch(e){}
+  $('fcNote').value=''; $('fcCustom').value='';
+  $('fcResult').innerHTML=`<div style="margin:.7rem 0;padding:.7rem .9rem;background:#eaf7f1;border:1px solid #1c6b3a;border-radius:10px;">\u2705 Code ban gaya: <b style="font-size:1.1rem;letter-spacing:.06em;">${esc(code)}</b> <button class="btn" type="button" style="width:auto;padding:.25rem .7rem;font-size:.75rem;margin:0 0 0 .5rem;" onclick="navigator.clipboard&&navigator.clipboard.writeText('${esc(code)}');toast('Copied')">Copy</button><div class="hint" style="margin-top:.25rem;">Is code ko sirf us intern ko bhejo jise free dena hai${max?' (max '+max+' use)':' (unlimited use)'}.</div></div>`;
+  renderFreeCodes();
+}
+async function toggleFreeCode(h){
+  try{ await mutateFreeCodes(list=>{ const c=list.find(x=>x.h===h); if(c) c.active=!c.active; return {list}; }); }catch(e){ alert('Update nahi hua.'); return; }
+  renderFreeCodes();
+}
+function renderFreeCodes(){
+  const el=$('fcList'); if(!el) return; const pm=codePlainMap();
+  if(!FREE_CODES.length){ el.innerHTML='<span class="hint">Abhi koi code nahi bana.</span>'; return; }
+  el.innerHTML='<table class="data-table" style="width:100%;font-size:.82rem;"><tr><th>Code</th><th>Note</th><th>Used</th><th>Status</th><th></th></tr>'+FREE_CODES.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).map(c=>{
+    const plain=pm[c.h]; const used=(c.usedBy||[]).length;
+    return `<tr><td>${plain?`<b style="letter-spacing:.04em;">${esc(plain)}</b> <button class="btn" type="button" style="width:auto;padding:.15rem .5rem;font-size:.68rem;margin:0;" onclick="navigator.clipboard&&navigator.clipboard.writeText('${esc(plain)}');toast('Copied')">Copy</button>`:'<span class="hint">(dusre device par bana \u2014 chhupa hai)</span>'}</td><td>${esc(c.label||'\u2014')}</td><td>${used}${c.max>0?' / '+c.max:' / \u221e'}</td><td>${c.active?'<span style="color:#1c6b3a;font-weight:700;">Active</span>':'<span style="color:#a3761f;font-weight:700;">Disabled</span>'}</td><td><button class="btn" type="button" style="width:auto;padding:.2rem .6rem;font-size:.72rem;margin:0;" onclick="toggleFreeCode('${c.h}')">${c.active?'Disable':'Enable'}</button></td></tr>`;
+  }).join('')+'</table>';
+}
 let FREE_EMAILS = (function(){ try{ const l=JSON.parse(localStorage.getItem('trendra_free_emails')||'[]'); return Array.isArray(l)?l:[]; }catch(e){ return []; } })();
-function isFreeApp(a){ const e=String(a.email||'').toLowerCase(); return !!a.feeWaived || (!!e && FREE_EMAILS.indexOf(e)>=0); }
+function isFreeApp(a){ const e=String(a.email||'').toLowerCase(); return !!a.feeWaived || !!a.freeCodeUsed || (!!e && FREE_EMAILS.indexOf(e)>=0); }
 function feeCleared(a){ const id=a.razorpayPaymentId||''; return !!(a.feePaid || a.paymentVerified || isFreeApp(a) || (a.paymentMethod==='razorpay' && id && id.indexOf('pay_DEMO')!==0)); }
 function certUnlocked(a){ return !!a.approved && feeCleared(a) && a.certReleased!==false; }
 function feeAmount(a){ return a.price || (a.plan==='With goodies' ? PRICE_GOODIES : PRICE_BASIC); }
@@ -1443,30 +1568,6 @@ function loadRazorpay(){
     const sc=document.createElement('script'); sc.src='https://checkout.razorpay.com/v1/checkout.js';
     sc.onload=res; sc.onerror=()=>rej(new Error('blocked')); document.head.appendChild(sc);
   });
-}
-function payWithRazorpay(){
-  if(!isSignedIn()){ alert('Pehle Google se sign in karo.'); return; }
-  const name=$('fname').value.trim(), mobile=$('fmobile').value.trim();
-  if(!name){ alert('Pehle apna naam bharo, phir payment karo.'); return; }
-  const goodies=$('fplan').value==='goodies', amt=goodies?PRICE_GOODIES:PRICE_BASIC, plan=goodies?'With goodies':'Without goodies';
-  if(!rzpEnabled()){
-    if(!isPreviewMode()){ alert('Razorpay abhi setup nahi hua. UPI QR se pay karo.'); return; }
-    demoCheckout(amt,($('ftrack').value||'Internship')+' \u2014 '+plan,id=>{ rzpPay={id,amount:amt,plan:$('fplan').value,at:Date.now(),demo:true}; renderUpiBox(); toast('Demo payment successful \u2713'); });
-    return;
-  }
-  loadRazorpay().then(()=>{
-    const u=getUser()||{};
-    const rz=new Razorpay({
-      key:RAZORPAY_KEY_ID, amount:amt*100, currency:'INR', name:'TrendraXTech',
-      description:($('ftrack').value||'Internship')+' — '+plan,
-      prefill:{name, email:u.email||'', contact:/^\d{10}$/.test(mobile)?mobile:''},
-      notes:{track:$('ftrack').value, plan, applicant:name, email:u.email||''},
-      theme:{color:'#0b8f7f'},
-      handler:r=>{ rzpPay={id:r.razorpay_payment_id, amount:amt, plan:$('fplan').value, at:Date.now()}; renderUpiBox(); toast('Payment successful ✓ — ab application submit karo'); }
-    });
-    if(rz.on) rz.on('payment.failed',r=>alert('Payment fail hua: '+((r.error&&r.error.description)||'')+'\nDobara try karo, ya UPI QR se pay karo.'));
-    rz.open();
-  }).catch(()=>alert('Razorpay load nahi hua (ad-blocker/network). UPI QR se pay karo.'));
 }
 function applyMissing(){
   const v=id=>(($(id)&&$(id).value)||'').trim(), m=[];
@@ -1822,6 +1923,54 @@ function ddBuild(){
   if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)){ ddBuild(); io.disconnect(); } },{rootMargin:'300px'}); io.observe(box); }
   else ddBuild();
 })();
+
+/* ---------- Ads (Adsterra) ----------
+   Every ad runs inside its own sandboxed iframe (no allow-same-origin), so ad code can NOT read this page,
+   the Google login, Razorpay or the admin screens. Ads appear only on public pages (home, verify, support).
+   In preview / local-file mode we show dashed placeholders instead of loading real ads. */
+const AD_UNITS = {
+  b728:{w:728,h:90,key:'327ddc624703aa8e59e2b3847e6302d5'},
+  b468:{w:468,h:60,key:'ecd594a64c52c1427c4ee44c14378a41'},
+  b320:{w:320,h:50,key:'e7e0b2e09857bd3896a6ff6dac031173'},
+  b300:{w:300,h:250,key:'aa3a9800e050be909c971760ae3d1156'},
+  s300:{w:160,h:300,key:'f458a3710356863b4f1052ba00761ba5'},
+  s600:{w:160,h:600,key:'cfa69dc74ab66aa940329299578587b6'}
+};
+const AD_NATIVE_KEY = 'be009f56e1e580bf4b0948a37b01b781';
+function adDoc(inner){ return '<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden}</style></head><body>'+inner+'</body></html>'; }
+function mountAd(host,u){
+  if(host.__mounted) return; host.__mounted=true;
+  if(isPreviewMode()){ const d=document.createElement('div'); d.className='ad-ph'; d.style.cssText='width:'+u.w+'px;height:'+Math.min(u.h,120)+'px;'; d.textContent=(u.native?'Native ad':'Ad '+u.w+'\u00d7'+u.h)+' (preview)'; host.appendChild(d); return; }
+  const f=document.createElement('iframe');
+  f.setAttribute('sandbox','allow-scripts allow-popups allow-popups-to-escape-sandbox');
+  f.setAttribute('scrolling','no'); f.setAttribute('title','Advertisement'); f.setAttribute('referrerpolicy','unsafe-url');
+  f.width=u.w; f.height=u.h; f.style.height=u.h+'px'; f.style.width=u.w+'px';
+  f.srcdoc = u.native
+    ? adDoc('<script async="async" data-cfasync="false" src="https://bauval.org/21/'+AD_NATIVE_KEY+'"><\/script><div id="container-'+AD_NATIVE_KEY+'"></div>')
+    : adDoc('<script>atOptions={\'key\':\''+u.key+'\',\'format\':\'iframe\',\'height\':'+u.h+',\'width\':'+u.w+',\'params\':{}};<\/script><script src="https://bauval.org/22/'+u.key+'"><\/script>');
+  host.appendChild(f);
+}
+function adSlot(units){
+  const slot=document.createElement('div'); slot.className='ad-slot'; slot.innerHTML='<small>Advertisement</small>';
+  units.forEach(u=>{ const h=document.createElement('div'); h.style.margin='.4rem auto'; slot.appendChild(h); slot.__hosts=(slot.__hosts||[]).concat([[h,u]]); });
+  const mount=()=>slot.__hosts.forEach(x=>mountAd(x[0],x[1]));
+  if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)){ mount(); io.disconnect(); } },{rootMargin:'250px'}); io.observe(slot); } else mount();
+  return slot;
+}
+function initAds(){
+  if(window.__adsInit) return; window.__adsInit=true;
+  const vw=window.innerWidth;
+  const bar = vw>=900 ? AD_UNITS.b728 : (vw>=640 ? AD_UNITS.b468 : AD_UNITS.b320);
+  const pricing=[...document.querySelectorAll('.section-label')].find(e=>e.textContent.trim()==='Pricing');
+  if(pricing){ const w=pricing.closest('.wrap'); if(w) w.parentNode.insertBefore(adSlot([bar]),w); }
+  const openings=[...document.querySelectorAll('.section-label')].find(e=>e.textContent.trim()==='Latest openings');
+  if(openings) openings.parentNode.insertBefore(adSlot([AD_UNITS.b300,Object.assign({native:true,w:Math.min(320,vw-48),h:300},{})]),openings);
+  ['view-verify','view-support'].forEach(id=>{ const v=document.getElementById(id); if(v) v.appendChild(adSlot([vw>=640?AD_UNITS.b468:AD_UNITS.b320])); });
+  if(vw>=1500){
+    [['l',AD_UNITS.s300],['r',AD_UNITS.s600]].forEach(([side,u])=>{ const g=document.createElement('div'); g.className='ad-gutter '+side; g.innerHTML='<small>Advertisement</small>'; document.body.appendChild(g); const h=document.createElement('div'); g.appendChild(h); mountAd(h,u); });
+  }
+  document.body.classList.toggle('on-home', !document.querySelector('[id^=view-]:not([style*="display:none"])') || document.getElementById('view-apply').style.display!=='none');
+}
 
 function generateLOR(app,ret){
   const {name} = app;
@@ -2277,6 +2426,7 @@ function syncMobileTabs(k){
 }
 function showView(name){
   syncMobileTabs(name==='apply'?'home':name);
+  document.body.classList.toggle('on-home', name==='apply');
   setTimeout(()=>{ const e=window.__googleVerifiedEmail; if(!e) return;
     if(name==='admin' && isAdminEmail(e) && $('adminPanel').style.display==='none') checkAdminLogin();
     if(name==='instructor' && isInstructorEmail(e) && $('instructorPanel').style.display==='none') checkInstructorLogin(); },0);
@@ -2570,11 +2720,9 @@ function getCertSettings(){
 function loadCertSettingsIntoForm(){
   const s = getCertSettings();
   $('certNote').value = s.note||'';
-  $('certFounderLabel').value = s.founderLabel||'Founder';
-  $('certCofounderLabel').value = s.cofounderLabel||'Co-Founder';
 }
 function saveCertSettings(){
-  const s = { note: $('certNote').value.trim(), founderLabel: $('certFounderLabel').value.trim()||'Founder', cofounderLabel: $('certCofounderLabel').value.trim()||'Co-Founder' };
+  const s = { note: $('certNote').value.trim() };
   try{ localStorage.setItem('trendra_cert_settings', JSON.stringify(s)); }catch(e){}
   toast('Certificate settings saved ✓');
 }
@@ -2640,7 +2788,7 @@ function renderAdminStats(){
   $('adminTrackBreakdown').innerHTML = breakdown || '<span class="hint">Abhi koi application nahi.</span>';
 }
 function renderAdminTable(){
-  renderRzpTests(); renderFreeList();
+  renderRzpTests(); renderFreeList(); renderFreeCodes();
   renderAdminStats();
   const q=($('adminSearch').value||'').toLowerCase();
   const trackFilter=$('adminTrackFilter').value;
@@ -2659,7 +2807,7 @@ function renderAdminTable(){
         ? `<button class="btn" type="button" style="width:auto;padding:.4rem .8rem;font-size:.78rem;" onclick="approveApp('${a.id}')">Approve</button>`
         : `<span class="hint">Training incomplete</span>`;
     const paymentHtml = isFreeApp(a)
-      ? `<span style="color:#1c6b3a;font-weight:700;">FREE \u2713</span><br><span class="hint">${a.feeWaived?'waived by admin':'free list'}</span>${a.feeWaived?`<br><button class="btn" type="button" style="width:auto;padding:.25rem .55rem;font-size:.7rem;margin-top:.2rem;" onclick="toggleFeeWaive('${a.id}')">Undo free</button>`:''}`
+      ? `<span style="color:#1c6b3a;font-weight:700;">FREE \u2713</span><br><span class="hint">${a.feeWaived?'waived by admin':(a.freeCodeUsed?'free code'+(a.freeCodeLabel?': '+esc(a.freeCodeLabel):''):'free list')}</span>${a.feeWaived?`<br><button class="btn" type="button" style="width:auto;padding:.25rem .55rem;font-size:.7rem;margin-top:.2rem;" onclick="toggleFeeWaive('${a.id}')">Undo free</button>`:''}`
       : feeCleared(a)
         ? `<span style="color:#1c6b3a;font-weight:700;">Paid \u20b9${esc(String(a.price||''))} \u2713</span>${a.razorpayPaymentId?`<br><span class="hint"><a href="https://dashboard.razorpay.com/app/payments/${esc(a.razorpayPaymentId)}" target="_blank" rel="noopener">${esc(a.razorpayPaymentId)}</a></span>`:''}`
         : `<span class="hint">Unpaid \u2014 \u20b9${esc(String(feeAmount(a)))}</span><br><button class="btn" type="button" style="width:auto;padding:.25rem .55rem;font-size:.7rem;margin-top:.2rem;" onclick="toggleFeeWaive('${a.id}')">Make FREE</button>`;
@@ -2696,19 +2844,6 @@ function isTrainingComplete(a){
   const videosDone = (tr.videosDone||[]).slice(0,neededLen);
   return videosDone.length===neededLen && videosDone.every(Boolean) && !!tr.quizPassed && !!tr.projectSubmitted;
 }
-function confirmPayment(id){
-  const a = apps.find(x=>x.id===id);
-  if(!a){ return; }
-  if((a.razorpayPaymentId||'').indexOf('pay_DEMO')===0){ alert('Ye demo (preview) payment hai — asli payment nahi, confirm nahi ho sakta.'); return; }
-  if(!a.utrId || (!a.paymentScreenshot && !a.razorpayPaymentId)){ alert('UTR ya screenshot missing hai — is applicant se dobara maango.'); return; }
-  if(!confirm(a.razorpayPaymentId ? 'Razorpay Dashboard mein '+a.razorpayPaymentId+' ka status "Captured" aur amount \u20b9'+a.price+' dikh raha hai? Tabhi confirm karo.' : 'Confirm karo ki '+a.name+' ka payment (UTR: '+a.utrId+') aapke UPI account mein mil gaya hai?')) return;
-  a.paymentVerified = true;
-  a.paymentVerifiedBy = currentAdminEmail || 'Admin';
-  a.paymentVerifiedDate = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
-  persistApps();
-  renderAdminTable();
-  toast('Payment confirmed for '+a.name+' ✓');
-}
 function approveApp(id){
   setTimeout(publishCerts,300);
   const a = apps.find(x=>x.id===id);
@@ -2735,8 +2870,8 @@ function deleteApp(id){
   renderAdminTable(); renderInstructorTable(); renderApps();
 }
 function exportCSV(){
-  const header=['Name','College','Mobile','Latitude','Longitude','Track','Duration','Start','Plan','Amount','UTR','Payment Verified','GitHub','LinkedIn','Status','Instructor','Notes'];
-  const rows=apps.map(a=>[a.name,a.college,a.mobile||'',a.location?a.location.lat:'',a.location?a.location.lng:'',a.track,a.duration,a.start,a.plan||'',a.price||'',a.utrId||'',a.paymentVerified?'Yes':'No',a.github||'',a.linkedin||'',a.status||'',a.instructor||'',a.notes||'']);
+  const header=['Name','College','Mobile','Latitude','Longitude','Track','Duration','Start','Email','Plan','Certificate Fee','Fee Status','Payment ID','GitHub','LinkedIn','Status','Instructor','Notes'];
+  const rows=apps.map(a=>[a.name,a.college,a.mobile||'',a.location?a.location.lat:'',a.location?a.location.lng:'',a.track,a.duration,a.start,a.email||'',a.plan||'',a.price||'',isFreeApp(a)?'FREE':(feeCleared(a)?'Paid':'Unpaid'),a.razorpayPaymentId||a.utrId||'',a.github||'',a.linkedin||'',a.status||'',a.instructor||'',a.notes||'']);
   const csv=[header,...rows].map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv'});
   const url=URL.createObjectURL(blob);
@@ -2896,7 +3031,7 @@ else if(window.__gLoaded) initGoogleSignIn();
   const u=getUser();
   if(u){ showAuthChip(u.email); if(u.name && !$('fname').value) $('fname').value=u.name; }
   unlockStaffTabs(); renderApps(); updateApplyGate(); applyFormHooks(); renderUpiBox();
-  syncMobileTabs('home');
+  syncMobileTabs('home'); initAds();
   { const _ot=openTraining; openTraining=function(id){ const r=_ot.apply(this,arguments); renderOfferBanner(id); renderFeeBanner(id); return r; }; }
 })();
 </script>
