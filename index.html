@@ -1952,13 +1952,25 @@ function mountAd(host,u){
   if(host.__mounted) return; host.__mounted=true;
   if(isPreviewMode()){ const d=document.createElement('div'); d.className='ad-ph'; d.style.cssText='width:'+u.w+'px;height:'+Math.min(u.h,120)+'px;'; d.textContent=(u.native?'Native ad':'Ad '+u.w+'\u00d7'+u.h)+' (preview)'; host.appendChild(d); return; }
   const f=document.createElement('iframe');
-  f.setAttribute('sandbox','allow-scripts allow-popups allow-popups-to-escape-sandbox');
+  f.setAttribute('sandbox','allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox');   // no allow-top-navigation: an ad can never redirect this page
   f.setAttribute('scrolling','no'); f.setAttribute('title','Advertisement'); f.setAttribute('referrerpolicy','unsafe-url');
   f.width=u.w; f.height=u.h; f.style.height=u.h+'px'; f.style.width=u.w+'px';
   f.srcdoc = u.native
     ? adDoc('<script async="async" data-cfasync="false" src="https://bauval.org/21/'+AD_NATIVE_KEY+'"><\/script><div id="container-'+AD_NATIVE_KEY+'"></div>')
     : adDoc('<script>atOptions={\'key\':\''+u.key+'\',\'format\':\'iframe\',\'height\':'+u.h+',\'width\':'+u.w+',\'params\':{}};<\/script><script src="https://bauval.org/22/'+u.key+'"><\/script>');
   host.appendChild(f);
+  // hide boxes where the ad never rendered (no fill / blocked) so visitors don't see empty "Advertisement" frames
+  setTimeout(()=>{
+    try{
+      const d=f.contentDocument; if(!d||!d.body) return;
+      const filled=[...d.body.children].some(c=>c.tagName!=='SCRIPT' && (c.tagName!=='DIV' || c.children.length>0 || c.textContent.trim().length>0));
+      if(!filled){
+        host.style.display='none';
+        const par=host.closest('.ad-slot,.ad-gutter,#adSticky');
+        if(par && ![...par.querySelectorAll('iframe')].some(x=>x.parentNode.style.display!=='none')) par.style.display='none';
+      }
+    }catch(e){}
+  },9000);
 }
 function adSlot(units){
   const slot=document.createElement('div'); slot.className='ad-slot'; slot.innerHTML='<small>Advertisement</small>';
@@ -1981,6 +1993,11 @@ async function adsDebug(){
   add(document.querySelectorAll('.ad-slot iframe,.ad-gutter iframe,#adSticky iframe').length>0,'Ad frames on this page: '+document.querySelectorAll('.ad-slot iframe,.ad-gutter iframe,#adSticky iframe').length);
   box.innerHTML='<b>Ad check</b><br>'+L.join('<br>')+'<br><button type="button" style="margin-top:6px;padding:.2rem .7rem;font-size:12px;min-height:0;width:auto;" onclick="this.parentNode.remove()">Close</button>';
   document.body.appendChild(box);
+}
+function purgeAdsForStaff(){
+  try{ localStorage.setItem('trendra_noads','1'); }catch(e){}
+  document.querySelectorAll('.ad-slot,.ad-gutter,#adSticky').forEach(e=>e.remove());
+  document.body.classList.remove('form-in-view');
 }
 function adsOff(){ try{ return localStorage.getItem('trendra_noads')==='1'; }catch(e){ return false; } }
 function loadPopAds(){
@@ -2828,7 +2845,7 @@ function checkAdminLogin(){
   const email=(window.__googleVerifiedEmail||'').toLowerCase();
   if(!email){ alert('Pehle Google se sign in karo.'); return; }
   if(!isAdminEmail(email)){ alert('Ye Gmail admin list mein nahi hai.'); return; }
-  currentAdminEmail=email; startAppsListener();
+  currentAdminEmail=email; startAppsListener(); purgeAdsForStaff();
   $('adminGate').style.display='none';
   $('adminPanel').style.display='';
   $('manageAccessPanel').style.display = isSuper(email) ? '' : 'none';
@@ -3023,7 +3040,7 @@ function checkInstructorLogin(){
   const email=(window.__googleVerifiedEmail||'').toLowerCase();
   if(!email){ alert('Pehle Google se sign in karo.'); return; }
   if(!isInstructorEmail(email)){ alert('Ye Gmail instructor list mein nahi hai.'); return; }
-  currentInstructorEmail=email; startAppsListener();
+  currentInstructorEmail=email; startAppsListener(); purgeAdsForStaff();
   $('instructorGate').style.display='none';
   $('instructorPanel').style.display='';
   $('instructorName').value = localStorage.getItem('trendra_instructor_name_'+email)||'';
