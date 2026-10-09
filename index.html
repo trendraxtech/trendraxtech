@@ -1967,6 +1967,21 @@ function adSlot(units){
   if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)){ mount(); io.disconnect(); } },{rootMargin:'250px'}); io.observe(slot); } else mount();
   return slot;
 }
+async function adsDebug(){
+  const box=document.createElement('div');
+  box.style.cssText='position:fixed;left:10px;top:84px;z-index:99999;max-width:360px;background:#111;color:#fff;font:12px/1.55 Arial,sans-serif;padding:10px 12px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.45);';
+  const L=[]; const add=(ok,t)=>L.push((ok===true?'\u2705 ':ok===false?'\u274C ':'\u2139\uFE0F ')+t);
+  add(null,'Host: '+location.hostname);
+  const prod=PROD_HOST_RE.test(location.hostname);
+  add(prod,prod?'Domain is trendrax.online':'Domain is NOT trendrax.online \u2014 Adsterra serves ads only on the domain you registered/approved');
+  add(!isPreviewMode(),isPreviewMode()?'Preview mode ON (placeholders only)':'Preview mode off (real ads)');
+  add(!adsOff(),adsOff()?'?noads is ON for this device (ads hidden)':'?noads flag off');
+  let reach=true; try{ await fetch('https://bauval.org/22/'+AD_UNITS.b728.key,{mode:'no-cors',cache:'no-store'}); }catch(e){ reach=false; }
+  add(reach,reach?'Ad server reachable from this browser':'Ad server BLOCKED in this browser (Brave Shields / ad blocker / network). Turn the shield off for this site, or use another browser/phone.');
+  add(document.querySelectorAll('.ad-slot iframe,.ad-gutter iframe,#adSticky iframe').length>0,'Ad frames on this page: '+document.querySelectorAll('.ad-slot iframe,.ad-gutter iframe,#adSticky iframe').length);
+  box.innerHTML='<b>Ad check</b><br>'+L.join('<br>')+'<br><button type="button" style="margin-top:6px;padding:.2rem .7rem;font-size:12px;min-height:0;width:auto;" onclick="this.parentNode.remove()">Close</button>';
+  document.body.appendChild(box);
+}
 function adsOff(){ try{ return localStorage.getItem('trendra_noads')==='1'; }catch(e){ return false; } }
 function loadPopAds(){
   /* Popunder / social-bar scripts must run in the page itself, so they are limited to ANONYMOUS visitors only.
@@ -1985,7 +2000,14 @@ function loadPopAds(){
 function initAds(){
   if(window.__adsInit) return; window.__adsInit=true;
   try{ const q=new URLSearchParams(location.search); if(q.get('noads')==='1') localStorage.setItem('trendra_noads','1'); if(q.get('noads')==='0') localStorage.removeItem('trendra_noads'); }catch(e){}
+  if(/[?&]adsdebug=1/.test(location.search)) setTimeout(adsDebug,1500);
   if(adsOff()) return;                                   // admin: open the site once with ?noads=1 to hide every ad on this device
+  if(isPreviewMode()){ buildAds(); return; }
+  // if an ad blocker (Brave Shields, uBlock...) or the network blocks the ad server, show NO empty "Advertisement" boxes
+  fetch('https://bauval.org/22/'+AD_UNITS.b728.key,{mode:'no-cors',cache:'no-store'}).then(()=>buildAds()).catch(()=>{ window.__adsBlocked=true; });
+}
+function buildAds(){
+  if(window.__adsBuilt) return; window.__adsBuilt=true;
   const vw=window.innerWidth;
   const bar = vw>=900 ? AD_UNITS.b728 : (vw>=640 ? AD_UNITS.b468 : AD_UNITS.b320);
   const label=t=>[...document.querySelectorAll('.section-label')].find(e=>e.textContent.trim().indexOf(t)===0);
